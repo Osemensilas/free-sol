@@ -1,5 +1,3 @@
-import Flip from "@/components/comonent/flip";
-import Advert from "../components/comonent/Advert";
 import Cleanup from "../components/comonent/Cleanup";
 import Machine from "../components/comonent/Machine";
 import { usePathname, useSearchParams } from 'next/navigation';

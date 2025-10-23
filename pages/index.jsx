@@ -16,6 +16,13 @@ export default function Home() {
   const [claim, setClaim] = useState("claim");
   const [refers, setRefers] = useState("refers");
   const [formContainer, setFormContainer] = useState("form-container");
+  const [claimSolBtn, setClaimSolBtn] = useState("btn equal-btn");
+  const [referalBtn, setReferalBtn] = useState("btn equal-btn dia-btn");
+  const [soundBtn, setSoundBtn] = useState("btn equal-btn sound-btn hide");
+  const [claimBtn, setClaimBtn] = useState("btn con-btn new-claim hide");
+  const [statBtn, setStatBtn] = useState("btn equal-btn hide");
+  const [headerTh, setHeaderTh] = useState("headerTh hide");
+  const [headerTop, setHeaderTop] = useState("header-top");
     
 
     const connectWal = () => {
@@ -30,6 +37,26 @@ export default function Home() {
     window.history.pushState({}, '', '/flip');
     setFlipContainer("flip-page-container active");
     setHomeContainer("home-page-container active");
+    setClaimSolBtn("btn equal-btn hide");
+    setReferalBtn("btn equal-btn dia-btn hide");
+    setClaimBtn("btn con-btn new-claim");
+    setStatBtn("btn equal-btn");
+    setSoundBtn("btn equal-btn sound-btn");
+    setHeaderTh("headerTh")
+    setHeaderTop("header-top hide");
+  }
+
+  const reversePage = () => {
+    window.history.pushState({}, '', '/');
+    setFlipContainer("flip-page-container");
+    setHomeContainer("home-page-container");
+    setClaimSolBtn("btn equal-btn");
+    setReferalBtn("btn equal-btn dia-btn");
+    setClaimBtn("btn con-btn new-claim hide");
+    setStatBtn("btn equal-btn hide");
+    setSoundBtn("btn equal-btn sound-btn hide");
+    setHeaderTop("header-top");
+    setHeaderTh("headerTh hide");
   }
 
   const claimSol = () => {
@@ -52,23 +79,83 @@ export default function Home() {
   return (
     <>
     <header id="header" className="header">
-        <div className="header-top">
+        <div className={headerTop}>
             <div className="header-top-con">
                 <img src="/referral.svg" alt="referral" />
                 <p>Share your affiliate link and enjoy <span>30%</span> commission!</p>
             </div>
+        </div>
+        <div className={headerTh}>
+          <div className="th-left">
+            <h3>Last Flip</h3>
+            <img src="flip_result_tail.svg" alt="" />
+          </div>
+          <div className="td-middle">
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_head.svg" alt="" />
+            <img src="flip_result_head.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_head.svg" alt="" />
+            <img src="flip_result_head.svg" alt="" />
+            <img src="flip_result_head.svg" alt="" />
+            <img src="flip_result_head.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_head.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_head.svg" alt="" />
+            <img src="flip_result_head.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_head.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+            <img src="flip_result_tail.svg" alt="" />
+          </div>
+          <div className="td-right">
+            <h3>Last 100:</h3>
+            <div className="flip-perecnt">
+              <img src="flip_result_head.svg" alt="" />
+              <h5>53%</h5>
+            </div>
+            <div className="flip-perecnt">
+              <img src="flip_result_tail.svg" alt="" />
+              <h5>47%</h5>
+            </div>
+          </div>
         </div>
         <div className="header-bottom">
             <div className="header-bottom-left">
                 <img src="/logo.png" alt="logo" />
             </div>
             <div className="header-bottom-right">
-                <button type="button" onClick={claimSol} className="btn equal-btn" title="header-btn">
+                <button type="button" onClick={claimSol} className={claimSolBtn} title="header-btn">
                     <img src="/tag_price.svg" alt="referral" />
                 </button>
-                <button type="button" onClick={referals} className="btn equal-btn dia-btn" title="header-btn">
+                <button type="button" onClick={referals} className={referalBtn} title="header-btn">
                     <img src="/diamond.svg" alt="diamond" />
                 </button>
+                <button type="button" className={soundBtn} title="header-btn">
+                  <img src="/sound.svg" alt="btn img" className="active" />
+                  <img src="/not-sound.svg" alt="" className="" />
+                </button>
+                <button type="button" onClick={reversePage} className={claimBtn} title="header-btn">Claim Free SOL👀</button>
+                <button type="button" className={statBtn} title="header-btn">Stats</button>
                 <button type="button" className="btn equal-btn" title="header-btn">EN</button>
                 <button type="button" onClick={connectWal} className="btn con-btn" title="header-btn">Connect</button>
             </div>

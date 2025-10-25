@@ -8,7 +8,7 @@ const Machine = () => {
             <div className="machine-right">
                 <h3>Total $SOL Recovered</h3>
                 <div className="machine-row">
-                    <img src="/solana_logo.svg" alt="" />
+                    <img src="/Solana_logo.svg" alt="" />
                     <h4>23,004 ($5.75M)</h4>
                 </div>
                 <div className="margin"></div>
@@ -17,7 +17,7 @@ const Machine = () => {
                 <div className="margin"></div>
                 <h3>Total Rebates</h3>
                 <div className="machine-row">
-                    <img src="/solana_logo.svg" alt="" />
+                    <img src="/Solana_logo.svg" alt="" />
                     <h4>1,035 ($258.75K)</h4>
                 </div>
             </div>

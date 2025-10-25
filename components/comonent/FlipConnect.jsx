@@ -127,15 +127,15 @@ const FlipCOnnect = () => {
                             <div className="coin-btn-container lower-btn">
                                 <button>
                                     <p style={{opacity: 0.4}}>{firstPrice}</p>
-                                    <img src="/solana_logo.svg" alt="" />
+                                    <img src="/Solana_logo.svg" alt="" />
                                 </button>
                                 <button>
                                     <p style={{opacity: 0.4}}>{secondPrice}</p>
-                                    <img src="/solana_logo.svg" alt="" />
+                                    <img src="/Solana_logo.svg" alt="" />
                                 </button>
                                 <button>
                                     <p style={{opacity: 0.4}}>{thirdPrice}</p>
-                                    <img src="/solana_logo.svg" alt="" />
+                                    <img src="/Solana_logo.svg" alt="" />
                                 </button>
                             </div>
                         </div>

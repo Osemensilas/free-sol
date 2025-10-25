@@ -579,7 +579,7 @@ const FlipCOnnect = () => {
             </div>
         </div>
         <div className="connect-wallet-btn-container">
-            <button type="button" onClick={howClicked} className="how-it-work-btn">[How It Works]</button>
+            <button type="button" onClick={howClicked} className="how-it-work-btn">[Terms and Conditions]</button>
         </div>
         <div className={faq}>
                 <div className="faq-main">
@@ -589,49 +589,28 @@ const FlipCOnnect = () => {
                     </header>
                     <div className="faq-container">
                         <div className="faq-content">
-                            <h2>Where is the reclaim SOL coming from?</h2>
-                            <p>Any accounts on Solana require a small storage fee to open them. By burning a token, we can close this</p>
-                            <p>account and reclaim the storage fee.</p>
+                            <h2>Age Requirement</h2>
+                            <p>By using CFS FLIP, you confirm that you are at least 18 years old. Minors are strictly prohibited from using this platform.</p>
                         </div>
                         <div className="faq-content">
-                            <h2>How much can I reclaim from closing vacant account?</h2>
-                            <p>Vacant accounts will give you 0.002 SOL.</p>
+                            <h2>Geographic Restrictions</h2>
+                            <p>CFS FLIP does not provide services in regions such as the European Union, United Kingdom, United States, Australia, and Panama. Accessing from these regions or bypassing restrictions via VPN is considered a violation.</p>
                         </div>
                         <div className="faq-content">
-                            <h2>Can I lose NFTs or other tokens like USDC from closing vacant accounts?</h2>
-                            <p>No, all vacant accounts selected already have 0 NFTs or Tokens assigned to them and have no use, feel</p>
-                            <p>secure in pressing Reclaim All and signing the transactions to close them and receive the locked sol.</p>
-                            <p>You can find more information in the official Solana Documentation, link</p>
+                            <h2>Responsible Entertainment</h2>
+                            <p>CFS FLIP is for entertainment purposes only and should not be used as a tool for profit. Please play responsibly, avoid chasing losses, and do not spend funds you cannot afford to lose.</p>
                         </div>
                         <div className="faq-content">
-                            <h2>Safe Burn</h2>
-                            <p>'Safe Burn' sends dust tokens to a Temporary Burn Program. This allows recovery if you mistakenly</p>
-                            <p>burn a valuable token, so we recommend keeping this ON.</p>
-                            <p>For developers who intend to permanently burn supply, we recommend turning this OFF so that tokens</p>
-                            <p>are irreversibly destroyed and inaccessible.</p>
+                            <h2>Disclaimer</h2>
+                            <p>CFS FLIP is provided “as is,” with no guarantees regarding outcomes or service. All risks are borne by the user. The platform is not responsible for asset losses, service interruptions, or related disputes.</p>
                         </div>
                         <div className="faq-content">
-                            <h2>How much can I reclaim from burn tokens and NFTs?</h2>
-                            <p>Burning tokens will give you 0.002 SOL. Burning most NFTs will give you 0.01 SOL. A few NFTs (such as</p>
-                            <p>scam NFTs) will give you 0.002 SOL.</p>
+                            <h2>Transparency</h2>
+                            <p>All game records are stored on-chain and publicly accessible. Anyone can verify activity through the platform or blockchain explorers.</p>
                         </div>
                         <div className="faq-content">
-                            <h2>Are there any fees associated with using ClaimFreeSOL?</h2>
-                            <p>By using ClaimFreeSOL, you are guaranteed to never lose SOL, you will only gain from the assets you</p>
-                            <p>choose to burn.</p>
-                            <p>Instead, to keep the team up and build more tools, a 15% donation is included for the recovered SOL.</p>
-                        </div>
-                        <div className="faq-content">
-                            <h2>Will my wallet be destroyed or become unsafe after claiming?</h2>
-                            <p>No, all it does is close your vacant accounts. It will not affect your wallet, and you can continue using</p>
-                            <p>it without concerns.</p>
-                        </div>
-                        <div className="faq-content">
-                            <h2>Limitations of Liability</h2>
-                            <p>Users acknowledge that burning digital assets involves inherent risks, and ClaimFreeSOL is not liable</p>
-                            <p>for any losses incurred. ClaimFreeSOL is not responsible if a user burns any asset by mistake. Before</p>
-                            <p>sending the transaction, please double check that you are aware that the asset you have marked is</p>
-                            <p>unwanted.</p>
+                            <h2>Agreement to Terms</h2>
+                            <p>By continuing to use CFS FLIP, you acknowledge and agree to these terms. If you do not agree, you must stop using the platform immediately.</p>
                         </div>
                     </div>
                     <div className="complete-btn-container">

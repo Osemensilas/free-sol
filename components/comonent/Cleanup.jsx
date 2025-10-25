@@ -33,6 +33,48 @@ const Cleanup = () => {
         walletTypeContainer.classList.add('active');
     }
 
+    const contClick = (e) => {
+        const own = e.currentTarget.parentElement.parentElement.children[1].children[0].children[1];
+        const other = e.currentTarget.parentElement.parentElement.children[1].children[0].children[0];
+
+        const firstBtn = e.currentTarget.parentElement.children[0];
+        const secondBtn = e.currentTarget.parentElement.children[1];
+        const thirdBtn = e.currentTarget.parentElement.children[2];
+
+        own.classList.add('active');
+        other.classList.add('active');
+
+        firstBtn.classList.remove('active');
+
+        if (e.currentTarget.innerText === 'Burn Tokens'){
+            secondBtn.classList.add('active');
+        }else{
+            secondBtn.classList.remove('active');
+        }
+
+        if (e.currentTarget.innerText === 'Burn NFTs'){
+            thirdBtn.classList.add('active');
+        }else{
+            thirdBtn.classList.remove('active');
+        }
+    }
+
+    const vacantClick = (e) => {
+        const own = e.currentTarget.parentElement.parentElement.children[1].children[0].children[0];
+        const other = e.currentTarget.parentElement.parentElement.children[1].children[0].children[1];
+
+        const firstBtn = e.currentTarget.parentElement.children[0];
+        const secondBtn = e.currentTarget.parentElement.children[1];
+        const thirdBtn = e.currentTarget.parentElement.children[2];
+
+        own.classList.remove('active');
+        other.classList.remove('active');
+
+        firstBtn.classList.add('active');
+        secondBtn.classList.remove('active');
+        thirdBtn.classList.remove('active');
+    }
+
     return ( 
         <>
         <div className="cleanup">
@@ -45,17 +87,23 @@ const Cleanup = () => {
             </div>
             <div className="cleanup-bottom">
                 <div className="cleanup-btn-container">
-                    <button type="button" className="vacant-btn">Vacant Accounts</button>
-                    <button type="button">Burn Tokens</button>
-                    <button type="button">Burn NFTs</button>
+                    <button type="button" onClick={vacantClick} className="active">Vacant Accounts</button>
+                    <button type="button" onClick={contClick}>Burn Tokens</button>
+                    <button type="button"onClick={contClick}>Burn NFTs</button>
                 </div>
                 <div className="cleanup-bottom-content">
                     <div className="cleanup-bottom-content-top">
-                        <header>
-                            <h2>Total $SOL To Claim:</h2>
-                        </header>
-                        <div className="cleanup-bottom-top-main-content">
-                            <p style={{color: 'green'}}>0.0034</p>
+                        <div className="before-contine">
+                            <header>
+                                <h2>Total $SOL To Claim:</h2>
+                            </header>
+                            <div className="cleanup-bottom-top-main-content">
+                                <p style={{color: 'green'}}>3.0</p>
+                            </div>
+                        </div>
+                        <div className="continue">
+                            <p>Connect Wallet to continue</p>
+                            <button type="button" onClick={connectWal} className="connect-wallet-btn">Connect Wallet</button>
                         </div>
                     </div>
                     <div className="cleanup-bottom-content-bottom">

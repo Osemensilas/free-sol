@@ -394,7 +394,7 @@ body.no-scroll{
   justify-items: center;
 }
 
-.cleanup-btn-container button.vacant-btn{
+.cleanup-btn-container button.active{
   border-color: rgb(165, 255, 184);
 }
 
@@ -1272,6 +1272,29 @@ p.require{
 .wallet-type-row img{
   height: 15px;
   width: 15px;
+}
+
+.before-contine{
+  height: max-content;
+  width: 100%;
+}
+
+.before-contine.active{
+  display: none;
+}
+
+.continue{
+  height: max-content;
+  width: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.continue.active{
+  display: flex;
 }
 
 @media (max-width: 1280px) {

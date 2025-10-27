@@ -98,7 +98,7 @@ const Cleanup = () => {
                                 <h2>Total $SOL To Claim:</h2>
                             </header>
                             <div className="cleanup-bottom-top-main-content">
-                                <p style={{color: 'green'}}>3.0</p>
+                                <p style={{color: 'green'}}>3.0 SOL</p>
                             </div>
                         </div>
                         <div className="continue">

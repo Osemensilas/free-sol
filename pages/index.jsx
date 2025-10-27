@@ -83,6 +83,19 @@ export default function Home() {
     walletTypeContainer.classList.add('active');
   }
 
+  const soundClicked = (e) => {
+    let firstChild = e.currentTarget.children[0];
+    let secondChild = e.currentTarget.children[1];
+
+    if (firstChild.classList.contains('active')){
+        firstChild.classList.remove('active');
+        secondChild.classList.add('active');
+    }else{
+        firstChild.classList.add('active');
+        secondChild.classList.remove('active');
+    }
+  }
+
   return (
     <>
     <header id="header" className="header">
@@ -157,7 +170,7 @@ export default function Home() {
                 <button type="button" onClick={referals} className={referalBtn} title="header-btn">
                     <img src="/diamond.svg" alt="diamond" />
                 </button>
-                <button type="button" className={soundBtn} title="header-btn">
+                <button type="button" onClick={soundClicked} className={soundBtn} title="header-btn">
                   <img src="/sound.svg" alt="btn img" className="active" />
                   <img src="/not-sound.svg" alt="" className="" />
                 </button>

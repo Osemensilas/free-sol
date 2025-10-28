@@ -410,7 +410,7 @@ body.no-scroll{
 .cleanup-bottom-content-top,
 .cleanup-bottom-content-bottom{
   min-height: 108px;
-  width: 50%;
+  width: 100%;
   padding: 24px 20px;
   border-radius: 8px;
   color: rgb(255, 255, 255);
@@ -1296,6 +1296,10 @@ p.require{
 
 .continue.active{
   display: flex;
+}
+
+.cleanup-bottom-content {
+ flex-direction: column;
 }
 
 @media (max-width: 1280px) {

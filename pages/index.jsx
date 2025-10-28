@@ -175,7 +175,6 @@ export default function Home() {
                   <img src="/not-sound.svg" alt="" className="" />
                 </button>
                 <button type="button" onClick={reversePage} className={claimBtn} title="header-btn">Claim Free SOL👀</button>
-                <button type="button" className={statBtn} title="header-btn">Stats</button>
                 <button type="button" className="btn equal-btn" title="header-btn">EN</button>
                 <button type="button" onClick={connectWal} className="btn con-btn" title="header-btn">Connect</button>
             </div>

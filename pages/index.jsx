@@ -109,8 +109,8 @@ export default function Home() {
                     "Content-Type" : "application/json",
                 },withCredentials: true
             })
-            
-            if (response.data === 'success'){
+
+            if (response.data.status === 'success'){
                 setLang(response.data.lang);
             }
         }catch(error){
@@ -143,7 +143,7 @@ export default function Home() {
             },withCredentials: true
         })
         
-        if (response.data === 'success'){
+        if (response.data.status === 'success'){
             setLang(response.data.lang);
         }
     }catch(error){

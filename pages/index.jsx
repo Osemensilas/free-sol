@@ -1,9 +1,10 @@
 import Cleanup from "../components/comonent/Cleanup";
 import Machine from "../components/comonent/Machine";
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FlipCOnnect from "@/components/comonent/FlipConnect";
 import HybridChart from "@/components/HybridChart";
+import axios from "axios";
 
 export default function Home() {
 
@@ -21,6 +22,8 @@ export default function Home() {
   const [statBtn, setStatBtn] = useState("btn equal-btn hide");
   const [headerTh, setHeaderTh] = useState("headerTh hide");
   const [headerTop, setHeaderTop] = useState("header-top");
+  const [lang, setLang] = useState('en');
+  const [clickFreeText, setClickFreeText] = useState('Click me to double your free sol');
     
 
     const connectWal = () => {
@@ -96,18 +99,70 @@ export default function Home() {
     }
   }
 
+  useEffect(() => {
+    async function getLang(){ 
+        try{
+            let url = "http://localhost/backends/solsback/get-language.php";
+
+            const response = await axios.get(url, {
+                headers: {
+                    "Content-Type" : "application/json",
+                },withCredentials: true
+            })
+            
+            if (response.data === 'success'){
+                setLang(response.data.lang);
+            }
+        }catch(error){
+            console.log("Error sending language: ", error);
+        }
+    }
+    getLang();
+  },[])
+
+  const langClicked = async (e) => {
+
+    if (lang === 'en'){
+        e.currentTarget.innerText = 'ZH';
+        setLang('zh');
+        setClickFreeText('点击翻倍你的 SOL');
+    }
+    
+    if (lang === 'zh'){
+        e.currentTarget.innerText = 'EN';
+        setLang('en');
+        setClickFreeText('Click me to double your free sol');
+    }
+
+    try{
+        let url = "http://localhost/backends/solsback/language.php";
+
+        const response = await axios.post(url, {language: lang}, {
+            headers: {
+                "Content-Type" : "application/json",
+            },withCredentials: true
+        })
+        
+        if (response.data === 'success'){
+            setLang(response.data.lang);
+        }
+    }catch(error){
+        console.log("Error sending language: ", error);
+    }
+  }
+
   return (
     <>
     <header id="header" className="header">
         <div className={headerTop}>
             <div className="header-top-con">
                 <img src="/referral.svg" alt="referral" />
-                <p>Share your affiliate link and enjoy <span>30%</span> commission!</p>
+                <p>{lang === 'en' ? 'Share your affiliate link and enjoy <span>30%</span> commission!' : '分享您的邀请链接，赚取 30% 推荐奖励！'}</p>
             </div>
         </div>
         <div className={headerTh}>
           <div className="th-left">
-            <h3>Last Flip</h3>
+            <h3>{lang === 'en' ? 'Last Flip' : '最后翻转'}</h3>
             <img src="flip_result_tail.svg" alt="" />
           </div>
           <div className="td-middle">
@@ -175,8 +230,8 @@ export default function Home() {
                   <img src="/not-sound.svg" alt="" className="" />
                 </button>
                 <button type="button" onClick={reversePage} className={claimBtn} title="header-btn">Claim Free SOL👀</button>
-                <button type="button" className="btn equal-btn" title="header-btn">EN</button>
-                <button type="button" onClick={connectWal} className="btn con-btn" title="header-btn">Connect</button>
+                <button type="button" onClick={langClicked} className="btn equal-btn" title="header-btn">EN</button>
+                <button type="button" onClick={connectWal} className="btn con-btn" title="header-btn">{lang === 'en' ? 'Connect' : '连接'}</button>
             </div>
         </div>
     </header>
@@ -189,20 +244,20 @@ export default function Home() {
               </div>
               <div className="advert-text">
                   <img src="pointing-right.png" alt="advert img" />
-                  <p>Click me to double your free sol</p>
+                  <p>{clickFreeText}</p>
                   <img src="pointing-right.png" className="last" alt="advert img" />
               </div>
               <div className="advert-img-conteiner">
                   <img src="spin.gif" alt="advert img" />
               </div>
           </button>
-          <Machine />
-          <Cleanup />
+          <Machine lang={lang} />
+          <Cleanup lang={lang} />
         </div>
       </div>
     </div>
     <div className={flipContainer}>
-      <FlipCOnnect />        
+      <FlipCOnnect lang={lang} />        
     </div>
     <div className={claim}>
         <div className="claim-cancel-container">

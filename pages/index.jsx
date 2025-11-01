@@ -111,7 +111,16 @@ export default function Home() {
             })
 
             if (response.data.status === 'success'){
-                setLang(response.data.lang);
+                if (response.data.lang === 'zh'){
+                    setLang('zh');
+
+                    document.querySelector('.lang-btn').innerHTML = 'EN';
+                }
+                
+                if (response.data.lang === 'en'){
+                    setLang('en');
+                    document.querySelector('.lang-btn').innerHTML = 'ZH';
+                }
             }
         }catch(error){
             console.log("Error sending language: ", error);
@@ -123,13 +132,13 @@ export default function Home() {
   const langClicked = async (e) => {
 
     if (lang === 'en'){
-        e.currentTarget.innerText = 'ZH';
+        e.currentTarget.innerText = 'EN';
         setLang('zh');
         setClickFreeText('点击翻倍你的 SOL');
     }
     
     if (lang === 'zh'){
-        e.currentTarget.innerText = 'EN';
+        e.currentTarget.innerText = 'ZH';
         setLang('en');
         setClickFreeText('Click me to double your free sol');
     }
@@ -157,7 +166,13 @@ export default function Home() {
         <div className={headerTop}>
             <div className="header-top-con">
                 <img src="/referral.svg" alt="referral" />
-                <p>{lang === 'en' ? 'Share your affiliate link and enjoy <span>30%</span> commission!' : '分享您的邀请链接，赚取 30% 推荐奖励！'}</p>
+                <p>
+                {lang === 'en' ? (
+                    <>Share your affiliate link and enjoy <span>30%</span> commission!</>
+                ) : (
+                    <>分享您的邀请链接，赚取 <span>30%</span> 推荐奖励！</>
+                )}
+                </p>
             </div>
         </div>
         <div className={headerTh}>
@@ -230,7 +245,7 @@ export default function Home() {
                   <img src="/not-sound.svg" alt="" className="" />
                 </button>
                 <button type="button" onClick={reversePage} className={claimBtn} title="header-btn">Claim Free SOL👀</button>
-                <button type="button" onClick={langClicked} className="btn equal-btn" title="header-btn">EN</button>
+                <button type="button" onClick={langClicked} className="btn equal-btn lang-btn" title="header-btn">EN</button>
                 <button type="button" onClick={connectWal} className="btn con-btn" title="header-btn">{lang === 'en' ? 'Connect' : '连接'}</button>
             </div>
         </div>

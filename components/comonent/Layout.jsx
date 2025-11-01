@@ -16,7 +16,7 @@ const Layout = ({children}) => {
             <link href="https://fonts.googleapis.com/css2?family=Dinkie&display=swap" rel="stylesheet"></link>
         </Head>
         <Header/>
-        <main className="h-max w-screen flex">
+        <main className="">
             {children}
         </main>
         <Footer/>

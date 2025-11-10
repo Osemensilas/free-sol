@@ -1,9 +1,11 @@
-import { useState } from "react";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const Cleanup = ({lang}) => {
 
     const [faq, setFaq] = useState("faq");
     const [formContainer, setFormContainer] = useState("form-container");
+    const [solsToCliam, setSolsToClaim] = useState(0);
 
     const howClicked = () => {
         setFaq('faq active');
@@ -75,6 +77,27 @@ const Cleanup = ({lang}) => {
         thirdBtn.classList.remove('active');
     }
 
+    useEffect(() => {
+        async function getSolsToClaim() {
+            try {
+                let url = "https://backend.claimfeesol.com/get-language.php/get-claims.php";
+
+                const response = await axios.get(url, {
+                    headers: {
+                        "Content-Type" : "application/json"
+                    },withCredentials: true
+                })
+                
+                if (response.data.status === 'success'){
+                    setSolsToClaim(response.data.sols);
+                }
+            } catch (error) {
+                console.log("Error fetching sols to claim: ", error);
+            }
+        } 
+        getSolsToClaim();
+    },[]);
+
     return ( 
         <>
         <div className="cleanup">
@@ -98,7 +121,7 @@ const Cleanup = ({lang}) => {
                                 <h2>{lang === 'en' ? 'Total $SOL To Claim:' : '可领回 $SOL 数量'}</h2>
                             </header>
                             <div className="cleanup-bottom-top-main-content">
-                                <p style={{color: 'green'}}>3 SOL</p>
+                                <p style={{color: 'green'}}>{Number(solsToCliam).toLocaleString()} SOL</p>
                             </div>
                         </div>
                         <div className="continue">

@@ -23,15 +23,13 @@ export default function Login() {
 
     try {
       const res = await axios.post(
-        "http://localhost/backends/solsback/login.php",
+        "https://backend.claimfeesol.com/get-language.php/login.php",
         { email, password },
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true, // for PHP session handling
         }
       );
-
-      console.log(res.data);
 
       if (res.data.status === "success") {
         setSuccess("Login successful!");

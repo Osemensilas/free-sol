@@ -14,10 +14,10 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function HybridChart() {
   const data = [
-    { name: "Claim.50SOL", value: 3, img: "/meme.svg" },
-    { name: "Claim.250SOL", value: 15, img: "/meme.svg" },
-    { name: "Claim.500SOL", value: 30, img: "/meme.svg" },
-    { name: "Claim.1000SOL", value: 60, img: "/meme.svg" },
+    { name: "Claim.50SOL", value: 3, img: "/meme.gif" },
+    { name: "Claim.250SOL", value: 15, img: "/meme.gif" },
+    { name: "Claim.500SOL", value: 30, img: "/meme.gif" },
+    { name: "Claim.1000SOL", value: 60, img: "/meme.gif" },
   ];
 
   const [visibleIndex, setVisibleIndex] = useState(0);

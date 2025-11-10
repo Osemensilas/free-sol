@@ -102,7 +102,7 @@ export default function Home() {
   useEffect(() => {
     async function getLang(){ 
         try{
-            let url = "http://localhost/backends/solsback/get-language.php";
+            let url = "https://backend.claimfeesol.com/get-language.php";
 
             const response = await axios.get(url, {
                 headers: {
@@ -144,7 +144,7 @@ export default function Home() {
     }
 
     try{
-        let url = "http://localhost/backends/solsback/language.php";
+        let url = "https://backend.claimfeesol.com/get-language.php/language.php";
 
         const response = await axios.post(url, {language: lang}, {
             headers: {

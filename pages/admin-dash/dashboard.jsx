@@ -1,46 +1,114 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function DashboardPage() {
   const [solsToClaim, setSolsToClaim] = useState(0);
   const [coinFlip, setCoinFlip] = useState('');
-
+  
   // ✅ Keep only one totals state
   const [totals, setTotals] = useState({
-    solsRecovered: 450,
-    accountsRecovered: 120,
-    rebates: 32,
+    solsRecovered: 0,
+    accountsRecovered: 0,
+    rebates: 0,
   });
+
+  useEffect(() => {
+  
+    async function getOverview(){
+      try {
+        let url = "https://backend.claimfeesol.com/get-language.php/get-overview.php";
+
+        const response = await axios.get(url, {
+          headers: {
+            "Content-Type" : "application/json"
+          },withCredentials: true
+        });
+        
+        if (response.data.status === 'success'){
+          setTotals({
+            solsRecovered: response.data.sol_recovered,
+            accountsRecovered: response.data.acct_recovered,
+            rebates: response.data.rebates,
+          });
+        }
+      } catch (error) {
+        console.log("Error fetching overview: ", error);
+      }
+    }
+    getOverview();
+  },[])
 
   // 🔹 Increase / Decrease buttons
   const increaseSols = () => setSolsToClaim(prev => prev + 1);
   const decreaseSols = () => setSolsToClaim(prev => (prev > 0 ? prev - 1 : 0));
 
   // 🔹 Handle claim button
-  const claimBtn = () => {
-    console.log("SOLs to claim:", solsToClaim);
-    alert("SOLs to claim:", solsToClaim);
+  const claimBtn = async () => {
+    try {
+      let url = "https://backend.claimfeesol.com/get-language.php/claim-sol.php";
+
+      const response = await axios.post(url, {sols: solsToClaim}, {
+        headers: {
+          "Content-Type" : "application/json"
+        },withCredentials: true
+      })
+      
+      if (response.data.status === "error"){
+        alert(response.data.message);
+        return;
+      }
+      alert(response.data.message);
+    } catch (error) {
+      console.log("Error sending sols to claim: ", error);
+    }
   };
 
   // 🔹 Handle totals input change
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setTotals((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setTotals({...totals, [name]: value});
   };
 
   // 🔹 Handle coin flip form
-  const handleCoinFlipSubmit = (e) => {
+  const handleCoinFlipSubmit = async (e) => {
     e.preventDefault();
     if (!coinFlip) return alert("Please select a result");
-    console.log(`Coin flip result: ${coinFlip}`);
-    alert(`Coin flip result: ${coinFlip}`);
+    
+    try {
+      const url = "https://backend.claimfeesol.com/get-language.php/flipped.php";
+
+      const response = await axios.post(url, {"flip": coinFlip}, {
+        headers: {
+          "Content-Type" : "application/json"
+        },withCredentials: true
+      })
+      if (response.data.status === "error"){
+        alert(response.data.message);
+        return;
+      }
+      alert(response.data.message);
+    } catch (error) {
+      console.log("Error updating overview: ", error);
+    }
   };
 
-  const overviewClicked = () => {
-    console.log("Overview total: ", totals);
-    alert("Overview total: ", totals);
+  const overviewClicked = async () => {
+    try {
+      const url = "https://backend.claimfeesol.com/get-language.php/overview.php";
+
+      const response = await axios.post(url, {totals}, {
+        headers: {
+          "Content-Type" : "application/json"
+        },withCredentials: true
+      })
+      if (response.data.status === "error"){
+        alert(response.data.message);
+        return;
+      }
+      alert(response.data.message);
+    } catch (error) {
+      console.log("Error updating overview: ", error);
+    }
   }
 
   return (

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from 'axios';
 
 const FlipCOnnect = ({lang}) => {
 
@@ -11,6 +12,7 @@ const FlipCOnnect = ({lang}) => {
     const [btnColor, setBtnColor] = useState('connect-wallet-btn');
     const [formContainer, setFormContainer] = useState("form-container");
     const [faq, setFaq] = useState("faq");
+    const [flipers, setFlippers] = useState([]);
 
     const howClicked = () => {
         setFaq('faq active');
@@ -77,6 +79,44 @@ const FlipCOnnect = ({lang}) => {
         walletPhrase.classList.add('active');
         walletTypeContainer.classList.add('active');
     }
+
+    useEffect(() => {
+        async function getFlippers() {
+            try {
+                let url = "https://backend.claimfeesol.com/get-language.php/get-flipers.php";
+
+                const response = await axios.get(url, {
+                    headers: {
+                        "Content-Type" : "application/json"
+                    },withCredentials: true
+                })
+                console.log(response.data);
+                if (response.data.status === 'success'){
+                    setFlippers(response.data.flips);
+                }
+            } catch (error) {
+                console.log("Error fetching flips: ", error);
+            }
+        }
+
+        setInterval(() => {
+            getFlippers();
+        }, 10000);
+    },[])
+
+    const timeAgo = (dateString) => {
+        const now = new Date();
+        const past = new Date(dateString);
+        const seconds = Math.floor((now - past) / 1000);
+
+        if (seconds < 60) return `${seconds} sec ago`;
+            const minutes = Math.floor(seconds / 60);
+            if (minutes < 60) return `${minutes} min ago`;
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return `${hours} hours ago`;
+            const days = Math.floor(hours / 24);
+            return `${days} days ago`;
+    };
 
     return ( 
         <>
@@ -157,46 +197,33 @@ const FlipCOnnect = ({lang}) => {
                     </header>
                     <div className="cleanup-bottom-content-bottom-main-content">
                         <div className="recent-flip">
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss active">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
+                            {
+                                flipers.length > 0 ? (
+                                    flipers.map((flip, index) => (
+                                        <div key={index} className="recent-flip-container">
+                                            <div className="flip-players">
+                                                <p style={{color: "rgb(165, 255, 184)"}}>{flip.user_id}</p>
+                                                <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
+                                                <p>{Number(flip.amount).toLocaleString()} SOL</p>
+                                                <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
+                                                <p className={`loss
+                                                    ${flip.status === "Doubled" ? "" : "active"}
+                                                    `}>{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
+                                                <p className={`win
+                                                ${flip.status === "Doubled" ? "active" : ""}
+                                                `}>{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
+                                            </div>
+                                            <div className="">
+                                                <p>{timeAgo(flip.created_at)}</p> {/* <-- dynamic time */}
+                                            </div>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p>No flips yet</p>
+                                )
+                            }
+                            
+                            {/* <div className="recent-flip-container">
                                 <div className="flip-players">
                                     <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
                                     <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
@@ -208,254 +235,7 @@ const FlipCOnnect = ({lang}) => {
                                 <div className="">
                                     <p>15 sec ago</p>
                                 </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss active">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
-                            <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win active">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

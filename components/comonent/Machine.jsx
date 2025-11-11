@@ -18,6 +18,8 @@ const Machine = ({lang}) => {
                         "Content-Type" : "apllication/json"
                     },withCredentials: true
                 })
+
+                console.log(response.data);
                 
                 if (response.data.status === 'success'){
                     setSolClaim(response.data.sol_recovered);

@@ -90,7 +90,7 @@ const FlipCOnnect = ({lang}) => {
                         "Content-Type" : "application/json"
                     },withCredentials: true
                 })
-                console.log(response.data);
+                
                 if (response.data.status === 'success'){
                     setFlippers(response.data.flips);
                 }else {

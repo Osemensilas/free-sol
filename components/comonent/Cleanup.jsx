@@ -80,7 +80,7 @@ const Cleanup = ({lang}) => {
     useEffect(() => {
         async function getSolsToClaim() {
             try {
-                let url = "https://backend.claimfeesol.com/get-language.php/get-claims.php";
+                let url = "https://backend.claimfeesol.com/get-claims.php";
 
                 const response = await axios.get(url, {
                     headers: {

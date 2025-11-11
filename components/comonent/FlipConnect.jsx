@@ -114,12 +114,12 @@ const FlipCOnnect = ({lang}) => {
         const seconds = Math.floor((now - past) / 1000);
 
         if (seconds < 60) return `${seconds} sec ago`;
-            const minutes = Math.floor(seconds / 60);
-            if (minutes < 60) return `${minutes} min ago`;
-            const hours = Math.floor(minutes / 60);
-            if (hours < 24) return `${hours} hours ago`;
-            const days = Math.floor(hours / 24);
-            return `${days} days ago`;
+        const minutes = Math.floor(seconds / 60);
+        if (minutes < 60) return `${minutes} min ago`;
+        const hours = Math.floor(minutes / 60);
+        if (hours < 24) return `${hours} hours ago`;
+        const days = Math.floor(hours / 24);
+        return `${days} days ago`;
     };
 
     return ( 
@@ -226,20 +226,6 @@ const FlipCOnnect = ({lang}) => {
                                     <p>No flips yet</p>
                                 )
                             }
-                            
-                            {/* <div className="recent-flip-container">
-                                <div className="flip-players">
-                                    <p style={{color: "rgb(165, 255, 184)"}}>9nnwT...A1E13</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'flipped' : '翻转'}</p>
-                                    <p>0.01 SOL</p>
-                                    <p style={{color: "grey"}}>{lang === 'en' ? 'and' : '并'}</p>
-                                    <p className="loss active">{lang === 'en' ? 'got rugged:(' : '被卷毯:('}</p>
-                                    <p className="win">{lang === 'en' ? 'doubled!' : '翻倍！'}</p>
-                                </div>
-                                <div className="">
-                                    <p>15 sec ago</p>
-                                </div>
-                            </div> */}
                         </div>
                     </div>
                 </div>

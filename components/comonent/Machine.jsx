@@ -22,10 +22,10 @@ const Machine = ({lang}) => {
                 console.log(response.data);
                 
                 if (response.data.status === 'success'){
-                    setSolClaim(response.data.sol_recovered);
-                    setAccountsRecovered(response.data.acct_recovered);
-                    setRebates(response.data.rebates);
-                    setSolsPrice(response.data.sols_price);
+                    setSolClaim(Number(response.data.sol_recovered));
+                    setAccountsRecovered(Number(response.data.acct_recovered));
+                    setRebates(Number(response.data.rebates));
+                    setSolsPrice(Number(response.data.sols_price));
                 }
             } catch (error) {
                 console.log("Error fetching overview: ", error);

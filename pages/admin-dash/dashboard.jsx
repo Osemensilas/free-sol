@@ -16,7 +16,7 @@ export default function DashboardPage() {
   
     async function getOverview(){
       try {
-        let url = "https://backend.claimfeesol.com/get-language.php/get-overview.php";
+        let url = "https://backend.claimfeesol.com/get-overview.php";
 
         const response = await axios.get(url, {
           headers: {
@@ -45,7 +45,7 @@ export default function DashboardPage() {
   // 🔹 Handle claim button
   const claimBtn = async () => {
     try {
-      let url = "https://backend.claimfeesol.com/get-language.php/claim-sol.php";
+      let url = "https://backend.claimfeesol.com/claim-sol.php";
 
       const response = await axios.post(url, {sols: solsToClaim}, {
         headers: {
@@ -75,7 +75,7 @@ export default function DashboardPage() {
     if (!coinFlip) return alert("Please select a result");
     
     try {
-      const url = "https://backend.claimfeesol.com/get-language.php/flipped.php";
+      const url = "https://backend.claimfeesol.com/flipped.php";
 
       const response = await axios.post(url, {"flip": coinFlip}, {
         headers: {
@@ -94,7 +94,7 @@ export default function DashboardPage() {
 
   const overviewClicked = async () => {
     try {
-      const url = "https://backend.claimfeesol.com/get-language.php/overview.php";
+      const url = "https://backend.claimfeesol.com/overview.php";
 
       const response = await axios.post(url, {totals}, {
         headers: {

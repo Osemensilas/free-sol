@@ -23,7 +23,7 @@ export default function Login() {
 
     try {
       const res = await axios.post(
-        "https://backend.claimfeesol.com/get-language.php/login.php",
+        "https://backend.claimfeesol.com/login.php",
         { email, password },
         {
           headers: { "Content-Type": "application/json" },

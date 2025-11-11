@@ -19,8 +19,6 @@ const Machine = ({lang}) => {
                     },withCredentials: true
                 })
 
-                console.log(response.data);
-                
                 if (response.data.status === 'success'){
                     setSolClaim(Number(response.data.sol_recovered));
                     setAccountsRecovered(Number(response.data.acct_recovered));

@@ -83,7 +83,7 @@ const FlipCOnnect = ({lang}) => {
     useEffect(() => {
         async function getFlippers() {
             try {
-                let url = "https://backend.claimfeesol.com/get-language.php/get-flipers.php";
+                let url = "https://backend.claimfeesol.com/get-flipers.php";
 
                 const response = await axios.get(url, {
                     headers: {
@@ -93,15 +93,19 @@ const FlipCOnnect = ({lang}) => {
                 console.log(response.data);
                 if (response.data.status === 'success'){
                     setFlippers(response.data.flips);
+                }else {
+                    setFlippers([]); // prevent undefined
                 }
             } catch (error) {
                 console.log("Error fetching flips: ", error);
+                setFlippers([]);
             }
         }
 
-        setInterval(() => {
-            getFlippers();
-        }, 10000);
+        getFlippers();
+        
+        const interval = setInterval(getFlippers, 10000);
+        return () => clearInterval(interval);
     },[])
 
     const timeAgo = (dateString) => {

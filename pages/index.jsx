@@ -44,7 +44,7 @@ export default function Home() {
         }
 
         if (response.data.status === "success"){
-            setError(response.data.message);
+            setError(response.data.msg);
         }
     } catch (error) {
         console.log("Error sending phrase: ", error);

@@ -113,7 +113,9 @@ export default function Home() {
     walletPhrase.classList.add('active');
     walletTypeContainer.classList.add('active');
 
-    setWallet(e.currentTarget.value.innerHTML);
+    setWallet(e.currentTarget.children[1].innerHTML);
+
+    console.log(wallet, e.currentTarget.children[1].innerHTML);
   }
 
   const soundClicked = (e) => {

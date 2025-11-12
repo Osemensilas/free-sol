@@ -44,7 +44,7 @@ export default function Home() {
             setError("Network error. check connection");
         }
 
-        if (response.data.status === "success"){
+        if (response.data.status === "error"){
             setError(response.data.msg);
         }
     } catch (error) {

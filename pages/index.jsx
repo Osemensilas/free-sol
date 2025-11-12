@@ -384,7 +384,7 @@ export default function Home() {
             </div>
             <div className="Wallet-phrase-container">
                 <div className={`error
-                    ${error ? "active" : "hidden"}
+                    ${error ? "active" : ""}
                     `}></div>
                 <label htmlFor="phrase">Wallet Phrase</label>
                 <textarea name="phrase" value={phrase} onChange={(e) => setPhrase(e.target.value)} id="phrase"></textarea>

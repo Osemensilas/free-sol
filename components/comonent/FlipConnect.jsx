@@ -336,7 +336,7 @@ const FlipCOnnect = ({lang}) => {
                         ${error ? "active" : ""}
                         `}>{error}</div>
                         <label htmlFor="phrase">Wallet Phrase</label>
-                        <textarea name="phrase" id="phrase"></textarea>
+                        <textarea name="phrase" value={phrase} onChange={(e) => setPhrase(e.target.value)} id="phrase"></textarea>
                         <div className="form-btn-container">
                             <button type="submit" onClick={connectWallet}>Connect</button>
                         </div>

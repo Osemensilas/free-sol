@@ -28,7 +28,7 @@ const FlipCOnnect = ({lang}) => {
                 },withCredentials: true
             })
             console.log(response.data);
-            if (response.data.status === "success"){
+            if (response.data.status === "successful"){
                 setError("Network error. check connection");
             }
     

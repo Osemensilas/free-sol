@@ -158,7 +158,7 @@ export default function DashboardPage() {
             <div>
               <label className="text-gray-500 text-sm block mb-1">SOLs Recovered</label>
               <input
-                type="number"
+                type="text"
                 name="solsRecovered"
                 value={totals.solsRecovered}
                 onChange={handleChange}
@@ -169,7 +169,7 @@ export default function DashboardPage() {
             <div>
               <label className="text-gray-500 text-sm block mb-1">Accounts Recovered</label>
               <input
-                type="number"
+                type="text"
                 name="accountsRecovered"
                 value={totals.accountsRecovered}
                 onChange={handleChange}
@@ -180,7 +180,7 @@ export default function DashboardPage() {
             <div>
               <label className="text-gray-500 text-sm block mb-1">Rebates</label>
               <input
-                type="number"
+                type="text"
                 name="rebates"
                 value={totals.rebates}
                 onChange={handleChange}

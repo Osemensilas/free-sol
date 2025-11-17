@@ -50,7 +50,7 @@ const Machine = ({lang}) => {
                 <h3>{lang === 'en' ? 'Total Rebates' : '总返利'}</h3>
                 <div className="machine-row">
                     <img src="/Solana_logo.svg" alt="" />
-                    <h3>{rebates}</h3>
+                    <h5>{rebates}</h5>
                 </div>
             </div>
         </div>

@@ -1329,6 +1329,9 @@ p.require{
   -webkit-text-fill-color: transparent;
 }
 
+.machine-row h3{
+  color: white;
+}
 
 @media (max-width: 1280px) {
     .machine-right {
